@@ -8,7 +8,7 @@ const app = express();
 // route finalhandler
 app.get("/", (req, res) => {
   res.send({
-    Hello: "world"
+    Hello: "node js"
   });
 });
 
