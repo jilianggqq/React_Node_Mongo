@@ -43,11 +43,11 @@ app.get(
 );
 
 // route finalhandler
-// app.get("/", (req, res) => {
-//   res.send({
-//     Hello: "node js"
-//   });
-// });
+app.get("/test", (req, res) => {
+  res.send({
+    Hello: "node js"
+  });
+});
 
 // the running time underlying environment where node js runs on top of.
 // if the app is running in local, process.env.PORT === undefined.
