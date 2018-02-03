@@ -21,11 +21,17 @@ passport.use(
       // the route that the user should be sent to after they grant grant permissions to our application.
       callbackURL: "/auth/google/callback"
     },
-    accessToken => {
-      console.log(accessToken);
+    (accessToken, refreshToken, profile, done) => {
+      // 1. tell google we could access its profile, using this token.
+      console.log("access Token: ", accessToken);
+      console.log("refresh Token: ", refreshToken);
+      console.log("profile: ", profile);
     }
   )
 );
+
+// they are attemping to turn that code into an actual profile.
+app.get("/auth/google/callback", passport.authenticate("google"));
 
 // oauth flow was entirely managed by passport.
 // use the string google to find strategy(GoogleStrategy)
