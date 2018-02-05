@@ -1,6 +1,9 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const mongoose = require("mongoose");
 const keys = require("../config/keys");
+
+const User = mongoose.model("users");
 
 //1. passport, I want you to aware there is a new strategy available.
 // understand that users can use this to authenticate themselves inside our application.
@@ -17,9 +20,14 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       // 1. tell google we could access its profile, using this token.
-      console.log("access Token: ", accessToken);
-      console.log("refresh Token: ", refreshToken);
+      // console.log("access Token: ", accessToken);
+      // console.log("refresh Token: ", refreshToken);
       console.log("profile: ", profile);
+      var user = new User();
+      user.googleId = profile.id;
+      user.displayName = profile.displayName;
+      user.email = profile.emails[0].value;
+      user.save();
     }
   )
 );
