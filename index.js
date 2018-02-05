@@ -2,6 +2,10 @@
 // using as Reactjs 2015 modules
 const express = require("express");
 const mongoose = require("mongoose");
+// give us access to cookies
+const cookieSession = require("cookie-session");
+// tell passport to make use of them.
+const passport = require("passport");
 const keys = require("./config/keys");
 // we are not assigning anything to it. just use require
 require("./models/User");
@@ -12,6 +16,18 @@ mongoose.connect(keys.mongoURI);
 
 // generate a new application running as apps
 const app = express();
+
+app.use(
+  cookieSession({
+    // expire time.
+    maxAge: 24 * 60 * 60 * 1000,
+    // keys for encription.
+    keys: [keys.cookieKey]
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // 1. test routes
 require("./routes/testRoutes")(app);
