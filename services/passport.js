@@ -42,7 +42,8 @@ passport.use(
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
       // the route that the user should be sent to after they grant grant permissions to our application.
-      callbackURL: "/auth/google/callback"
+      callbackURL: "/auth/google/callback",
+      proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
       // 1. tell google we could access its profile, using this token.
