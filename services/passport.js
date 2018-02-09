@@ -17,6 +17,7 @@ function createNewUser(profile, done) {
 // put identified in cookie.
 // we are using passport to help us manage the cookie. So we don't need to do that manually.
 passport.serializeUser((user, done) => {
+  console.log("serializeUser", user);
   // why do we use id but not profile id?
   // we maybe use oauth from different web sites like Facebook, LinkedIn.
   done(null, user.id);
@@ -24,6 +25,7 @@ passport.serializeUser((user, done) => {
 
 // get id from cookie.
 passport.deserializeUser((id, done) => {
+  console.log("deserializeUser", id);
   User.findById(id).then(user => {
     done(null, user);
   });

@@ -20,10 +20,22 @@ const app = express();
 // middleware inside our application.
 // middleware is doing some preprocessing of the incoming requests before they are sent off to different route handlers.
 // steps before go to route.
-// 1. cookieSession library extracts cookie data, then assign it to req.session.
-// 2. passport library pulls user id out of the cookie data.
+// 1. cookieSession library extracts cookie data, then assign it to req.session property.
+// 2. passport library pulls user id out of the cookie data. passport is not really looking at cookie. But looking it from req.session.
+// In fact, the session.password.user === id in mongodb.
 // 3. calling deserializeUser function. turning userid into User.
 // 4. add user model into req.
+
+// (1) cookie-session when we are using cookie session. we can say that cookie is the session. The cookie contains all the data related to the session.
+// We decode the cookie then we can see the exact value inside the cookie is what is instored in the req.session.
+
+// (2) express-session stores a refrence to the session. It will store a refrence to a session in cookie. Takes session id, look up all relavant info from a 'session store'.
+
+// cookie-session stores all the session data, but express session just stores sessionid,
+// when the request comes, it get data from session store using sessionid.
+
+// mainly 3 parts.
+// (1) (2) cookieSession vs express-session
 app.use(
   cookieSession({
     // expire time.
@@ -47,4 +59,4 @@ require("./routes/authRoutes")(app);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT);
-console.log("app is running in poat " + PORT);
+console.log("app is running in port " + PORT);
