@@ -44,7 +44,7 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       // 1. tell google we could access its profile, using this token.
-      // console.log("access Token: ", accessToken);
+      console.log("access Token: ", accessToken);
       // console.log("refresh Token: ", refreshToken);
       let filter = { googleId: profile.id };
       // promise
