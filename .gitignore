@@ -12,7 +12,8 @@ pids
 lib-cov
 
 # for security
-keys.js
+# keys.js
+dev.js
 
 # Coverage directory used by tools like istanbul
 coverage
