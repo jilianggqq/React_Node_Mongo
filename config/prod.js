@@ -5,6 +5,3 @@ module.exports = {
   mongoURI: process.env.MONGO_URI,
   cookieKey: process.env.COOKIE_KEY
 };
-
-// 463580672547-54gu6r9b282t8gu90th4tse3gqh7eamo.apps.googleusercontent.com
-// 751NALYchJ_ZWe-yqElXZAKs
