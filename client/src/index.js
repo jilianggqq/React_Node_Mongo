@@ -4,9 +4,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
+import reduxThunk from "redux-thunk";
 
 import App from "./components/App";
 import reducers from "./reducers";
+
+// react creators are where we somehow initiate change inside of the redux side of our application.
 
 // we will use createStore help to create instance of our redux store.
 // 1st param is all the different producers that we have inside of our application.
