@@ -1,25 +1,42 @@
-import React from "react";
+import React, { Component } from "react";
 // BrowserRouter is looking at current URL, and the changes a set of components that are visible on the screen at any given time.
 import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
+
 import Header from "./Header";
 
 const Dashboard = () => <h2>Dashboard</h2>;
 const Surveynew = () => <h2>Surveynew</h2>;
 const Landing = () => <h2>Landing</h2>;
 
-const App = () => {
-  return (
-    <div>
-      <BrowserRouter>
-        <div className="container">
-          <Header />
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/surveys" component={Dashboard} />
-          <Route exact path="/surveys/new" component={Surveynew} />
-        </div>
-      </BrowserRouter>
-    </div>
-  );
-};
-
-export default App;
+class App extends React.Component {
+  componentDidMount() {
+    // create action creator here.
+    // this component will receive action creators from the redux side of our application.
+    console.log("componentDidMount start...");
+    console.log("props of App:", this.props);
+    this.props.fetchUser();
+    // this.props.testAction();
+    console.log("componentDidMount end...");
+  }
+  render() {
+    return (
+      <div>
+        <BrowserRouter>
+          <div className="container">
+            <Header />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/surveys" component={Dashboard} />
+            <Route exact path="/surveys/new" component={Surveynew} />
+          </div>
+        </BrowserRouter>
+      </div>
+    );
+  }
+}
+// we are going to hook up our app component to our redux store by using the connect helper from the react-redux library.
+// 1st for the map state to prop's arguments or the map state to proper function
+// 2nd we pass all the different action creators we want to wire up.
+// once we pass all of these different actions, they are assigned to the app component as props
+export default connect(null, actions)(App);
