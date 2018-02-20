@@ -21,6 +21,8 @@ export const fetchUser = () => {
 
 // in the production version, I'd like to use this way.
 export const fetchUser_prod = () => async dispatch => {
+  console.log("fetchUser_prod start ...");
   const res = await axios.get("/api/current_user");
   return dispatch({ type: FETCH_USER, payload: res });
+  console.log("fetchUser_prod end ...");
 };
