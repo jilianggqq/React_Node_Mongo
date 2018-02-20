@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 
 import Header from "./Header";
+import Landing from "./Landing";
 
 const Dashboard = () => <h2>Dashboard</h2>;
 const Surveynew = () => <h2>Surveynew</h2>;
-const Landing = () => <h2>Landing</h2>;
 
 class App extends React.Component {
   componentDidMount() {
@@ -36,7 +36,7 @@ class App extends React.Component {
   }
 }
 // we are going to hook up our app component to our redux store by using the connect helper from the react-redux library.
-// 1st for the map state to prop's arguments or the map state to proper function
+// 1st for the map state to prop's arguments or the map state to props function
 // 2nd we pass all the different action creators we want to wire up.
 // once we pass all of these different actions, they are assigned to the app component as props
 export default connect(null, actions)(App);

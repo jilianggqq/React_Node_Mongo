@@ -1,25 +1,38 @@
 import React, { Component } from "react";
-
-// inline css. using <div style={divStyle}> way.
-// const divStyle = {
-//   margin: "40px",
-//   border: "5px solid pink"
-// };
-
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+// remember how do we hook up a Component to redux store?
+// we always import connect helper with redux store, we define the map state to prop's function
+// and then we pull off the litte pieces of state that we actually care about.
 class Header extends Component {
+  renderContent() {
+    switch (this.props.auth) {
+      case null:
+        return;
+      case false:
+        return (
+          <li>
+            <a href="/auth/google">Login With Google</a>
+          </li>
+        );
+      default:
+        return (
+          <li>
+            <a href="/api/logout">Logout</a>
+          </li>
+        );
+    }
+  }
   render() {
+    console.log("this.props of Header:", this.props);
     return (
       <div>
         <nav>
           <div className="nav-wrapper">
-            <a href="#" className="left brand-logo">
+            <Link to={this.props.auth ? "/surveys" : "/"} className="left brand-logo">
               Peter Guan
-            </a>
-            <ul className="right">
-              <li>
-                <a href="#">Login with Google</a>
-              </li>
-            </ul>
+            </Link>
+            <ul className="right">{this.renderContent()}</ul>
           </div>
         </nav>
       </div>
@@ -27,4 +40,14 @@ class Header extends Component {
   }
 }
 
-export default Header;
+// gets calls with the entire state object outof the redux store.
+// because we assigned in the reducers, authReducer's key is auth.
+function mapStateToProps(state) {
+  console.log("mapStateToProps starts, state:", state);
+  return { auth: state.auth };
+}
+function mapStateToProps_prod({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(Header);
