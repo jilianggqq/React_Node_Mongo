@@ -10,15 +10,11 @@ import Landing from "./Landing";
 const Dashboard = () => <h2>Dashboard</h2>;
 const Surveynew = () => <h2>Surveynew</h2>;
 
-class App extends React.Component {
+class App extends Component {
   componentDidMount() {
     // create action creator here.
     // this component will receive action creators from the redux side of our application.
-    console.log("componentDidMount start...");
-    console.log("props of App:", this.props);
     this.props.fetchUser();
-    // this.props.testAction();
-    console.log("componentDidMount end...");
   }
   render() {
     return (
