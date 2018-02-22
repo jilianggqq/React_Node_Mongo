@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.188.0",
+    "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
@@ -27,6 +28,7 @@
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "serverless-dynamodb-client": "0.0.2",
-    "serverless-dynamodb-local": "^0.2.27"
+    "serverless-dynamodb-local": "^0.2.27",
+    "stripe": "^5.5.0"
   }
 }

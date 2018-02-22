@@ -16,6 +16,7 @@ mongoose.connect(keys.mongoURI);
 
 // generate a new application running as apps
 const app = express();
+const bodyParser = require("body-parser");
 
 // middleware inside our application.
 // middleware is doing some preprocessing of the incoming requests before they are sent off to different route handlers.
@@ -44,15 +45,21 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
+// this is a middleware, it will parse the body and assign the data into res.body property.
+app.use(bodyParser.json());
 
 app.use(passport.initialize());
 app.use(passport.session());
+// also, we need to create the middleware with some very particular request handlers.
 
 // 1. test routes
 require("./routes/testRoutes")(app);
 
 // 2. auth routes
 require("./routes/authRoutes")(app);
+
+// 3. for billing system.
+require("./routes/billingRoutes")(app);
 
 // the running time underlying environment where node js runs on top of.
 // if the app is running in local, process.env.PORT === undefined.

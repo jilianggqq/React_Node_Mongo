@@ -6,7 +6,8 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   googleId: String,
   displayName: String,
-  email: String
+  email: String,
+  credits: { type: Number, default: 0 }
 });
 
 // first parameter is the name of collection.
