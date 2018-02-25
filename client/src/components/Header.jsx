@@ -27,7 +27,10 @@ class Header extends Component {
       <div>
         <nav>
           <div className="nav-wrapper">
-            <Link to={this.props.auth ? "/surveys" : "/"} className="left brand-logo">
+            <Link
+              to={this.props.auth ? "/surveys" : "/"}
+              className="left brand-logo"
+            >
               Peter Guan
             </Link>
             <ul className="right">{this.renderContent()}</ul>
@@ -43,7 +46,7 @@ class Header extends Component {
 // gets calls with the entire state object outof the redux store.
 // because we assigned in the reducers, authReducer's key is auth.
 function mapStateToProps(state) {
-  console.log("mapStateToProps starts, state:", state);
+  console.log("mapStateToProps in Header, state:", state);
   return { auth: state.auth };
 }
 function mapStateToProps_prod({ auth }) {

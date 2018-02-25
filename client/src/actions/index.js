@@ -5,11 +5,13 @@ import { PLAIN_MSG } from "./types";
 // this is the debug version.
 export const fetchUser = () => {
   // generally, action must be a plain json. But redux-thunk can make it be a function and executed immediately.
-  // when the action is finished, it will be separted into different reducers.
+  // when the action is finished, it will be separted into different reducers through dispatch method.
   console.log("fetchUser start ...");
 
   const func = function(dispatch) {
-    console.log("the returning function of fetchUser is running by redux-thunk...");
+    console.log(
+      "the returning function of fetchUser is running by redux-thunk..."
+    );
     axios.get("/api/current_user").then(res => {
       console.log("dispatching the response from /api/current_user");
       return dispatch({ type: FETCH_USER, payload: res.data });
@@ -23,7 +25,7 @@ export const fetchUser = () => {
 export const fetchPlainMsg = () => {
   return {
     type: PLAIN_MSG,
-    message: "Peter"
+    message: "Peter Guan"
   };
 };
 

@@ -17,8 +17,9 @@ class Landing extends React.Component {
   }
 }
 
-function mapStateToProps({ idle }) {
-  return { idle };
+function mapStateToProps(state) {
+  console.log("mapStateToProps in Landing, state is:", state);
+  return { idle: state.idle };
 }
 
 export default connect(mapStateToProps)(Landing);
