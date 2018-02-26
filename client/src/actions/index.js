@@ -22,17 +22,34 @@ export const fetchUser = () => {
   return func;
 };
 
-export const fetchPlainMsg = () => {
-  return {
-    type: PLAIN_MSG,
-    message: "Peter Guan"
-  };
-};
-
 // in the production version, I'd like to use this way.
 export const fetchUser_prod = () => async dispatch => {
   console.log("fetchUser_prod start ...");
   const res = await axios.get("/api/current_user");
   console.log("fetchUser_prod end ...");
   return dispatch({ type: FETCH_USER, payload: res });
+};
+
+/*
+  calback method for payment Component
+  axios.post return a promise, using then method to handle promise
+*/
+// export const onToken = token =>
+//   function(dispatch) {
+//     console.log(token);
+//     axios.post("/api/stripe", token).then(res => {
+//       return dispatch({ type: FETCH_USER, payload: res.data });
+//     });
+//   };
+export const onToken = token => async dispatch => {
+  const res = await axios.post("/api/stripe", token);
+  return dispatch({ type: FETCH_USER, payload: res.data });
+};
+
+// test method, just return a plain text.
+export const fetchPlainMsg = () => {
+  return {
+    type: PLAIN_MSG,
+    message: "Peter Guan"
+  };
 };

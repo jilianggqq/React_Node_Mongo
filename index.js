@@ -7,6 +7,7 @@ const cookieSession = require("cookie-session");
 // tell passport to make use of them.
 const passport = require("passport");
 const keys = require("./config/keys");
+var bodyParser = require("body-parser");
 // we are not assigning anything to it. just use require
 require("./models/User");
 require("./services/passport");
@@ -47,12 +48,17 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+// parse application/json
+app.use(bodyParser.json());
 
 // 1. test routes
 require("./routes/testRoutes")(app);
 
 // 2. auth routes
 require("./routes/authRoutes")(app);
+
+// 3. stripe routes
+require("./routes/billingRoutes")(app);
 
 // the running time underlying environment where node js runs on top of.
 // if the app is running in local, process.env.PORT === undefined.
