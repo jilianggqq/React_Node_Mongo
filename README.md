@@ -1,6 +1,7 @@
 # React Node Mongo Example
 
 ## about oauth
+
 url : https://accounts.google.com/o/oauth2/v2/auth?
 
 response_type=code
@@ -14,3 +15,9 @@ _we can replace client_id with official client_id. like airbnb_
 _when we get information. we just send them to our servers and record there information._
 client_id=463580672547-54gu6r9b282t8gu90th4tse3gqh7eamo.apps.googleusercontent.com
 client_id=airbnb_clint_google_oauth
+
+_push branch onto heroku_
+git push -f heroku master:master
+git push -f heroku-dev test:master
+
+https://stark-reaches-92573.herokuapp.com/surveys
