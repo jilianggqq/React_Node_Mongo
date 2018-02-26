@@ -50,6 +50,6 @@ export const onToken = token => async dispatch => {
 export const fetchPlainMsg = () => {
   return {
     type: PLAIN_MSG,
-    message: "Peter Guan"
+    message: "Peter Guan(DEV)"
   };
 };
