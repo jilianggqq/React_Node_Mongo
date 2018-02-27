@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "./Button";
 // searching function, return a function as a filter parameter.
 /*function isSearched(searchTerm) {
   return function(item) {
@@ -27,22 +28,9 @@ class Table extends React.Component {
               <span>{item.num_comments}</span>
               <span>{item.points}</span>
               <span>
-                <button
-                  /*
-              onClick={(function(that) {
-                // this is the old way, but you need to understand that.
-                return function() {
-                  that.onDismiss(item.objectID);
-                };
-              })(this)}
-              */
-                  onClick={() => {
-                    onDismiss(item.objectID);
-                  }}
-                  type="button"
-                >
+                <Button onClick={() => onDismiss(item.objectID)} className="">
                   Dismiss
-                </button>
+                </Button>
               </span>
             </div>
           );
