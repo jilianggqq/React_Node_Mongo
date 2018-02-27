@@ -13,8 +13,7 @@
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "nodemon index_test.js",
-    "heroku-postbuild":
-      "NPM_CONFIG_PRODUCTION=false npm install --prefix client np && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client np && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",

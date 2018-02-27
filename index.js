@@ -9,6 +9,7 @@ const passport = require("passport");
 const keys = require("./config/keys");
 // we are not assigning anything to it. just use require
 require("./models/User");
+require("./models/Survey");
 require("./services/passport");
 
 // test database connection
