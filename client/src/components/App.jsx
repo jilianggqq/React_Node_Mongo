@@ -2,6 +2,7 @@ import React from "react";
 import source from "../sources/list";
 import Search from "./Search";
 import Table from "./Table";
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -41,10 +42,12 @@ class App extends React.Component {
     but make it possible to compose components into each other.*/
     const { searchTerm, list } = this.state;
     return (
-      <div>
-        <Search value={searchTerm} onChange={this.onSearchChange}>
-          Search
-        </Search>
+      <div className="page">
+        <div className="interactions">
+          <Search value={searchTerm} onChange={this.onSearchChange}>
+            Search
+          </Search>
+        </div>
         <Table list={list} pattern={searchTerm} onDismiss={this.onDismiss} />
       </div>
     );
