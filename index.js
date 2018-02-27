@@ -61,6 +61,7 @@ require("./routes/authRoutes")(app);
 
 // 3. for billing system.
 require("./routes/billingRoutes")(app);
+require("./routes/surveyRoutes")(app);
 
 // the running time underlying environment where node js runs on top of.
 // if the app is running in local, process.env.PORT === undefined.
