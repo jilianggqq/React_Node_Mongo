@@ -22,10 +22,10 @@ import React from "react";
 
 // A rule of thumb is to use functional stateless components
 // when you don’t need local state or component lifecycle methods.
-const Search = ({ value, onChange, children }) => (
-  <form>
-    {children}:
+const Search = ({ value, onChange, onSubmit, children }) => (
+  <form onSubmit={onSubmit}>
     <input type="text" value={value} onChange={onChange} />
+    <button type="submit">{children}</button>
   </form>
 );
 export default Search;
