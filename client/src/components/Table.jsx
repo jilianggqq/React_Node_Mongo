@@ -16,6 +16,7 @@ class Table extends React.Component {
     const { list, pattern, onDismiss } = this.props;
     /*map function. It enables you to iterate over your list of items to
     display them.*/
+    // debugger;
     return (
       <div className="table">
         {list.filter(isSearched(pattern)).map(item => {

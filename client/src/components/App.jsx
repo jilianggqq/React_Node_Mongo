@@ -1,17 +1,26 @@
 import React from "react";
-import source from "../sources/list";
 import Search from "./Search";
 import Table from "./Table";
+import axios from "axios";
 import "./App.css";
+const DEFAULT_QUERY = "redux";
+const PATH_BASE = "https://hn.algolia.com/api/v1";
+const PATH_SEARCH = "/search";
+const PARAM_SEARCH = "query=";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     // The state is bound to the class by using the this object.
     // Thus you can access the local state in your whole component.
-    this.state = { searchTerm: "", list: source };
+    this.state = { searchTerm: DEFAULT_QUERY, result: null };
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
+  }
+
+  setSearchTopStories(result) {
+    this.setState({ result });
   }
 
   onSearchChange(event) {
@@ -20,17 +29,28 @@ class App extends React.Component {
     console.log("state", this.state);
   }
 
+  componentDidMount() {
+    const { searchTerm } = this.state;
+    axios
+      .get(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+      .then(res => {
+        // console.log(res);
+        this.setSearchTopStories(res.data);
+      });
+  }
+
   /*
-  Basically you want to remove the item identified by the id from the list
-  and store an updated list to your local state.
-  Afterward, the updated list will be used in the re-running render() method to display it.
+  Basically you want to remove the item identified by the id from the result
+  and store an updated result to your local state.
+  Afterward, the updated result will be used in the re-running render() method to display it.
   */
   onDismiss(objId) {
     console.log(`onDismiss start ... ${objId}`);
-    const list = this.state.list.filter(item => item.objectID !== objId);
+    const updatedHits = this.state.result.hits.filter(
+      item => item.objectID !== objId
+    );
     this.setState({
-      list,
-      searchTerm: ""
+      result: { ...this.state.result, hits: updatedHits }
     });
     console.log("onDismiss end ...");
   }
@@ -40,7 +60,7 @@ class App extends React.Component {
     /*You can use children prop to pass elements to your components from above,
     which are unknown to the component itself,
     but make it possible to compose components into each other.*/
-    const { searchTerm, list } = this.state;
+    const { searchTerm, result } = this.state;
     return (
       <div className="page">
         <div className="interactions">
@@ -48,7 +68,13 @@ class App extends React.Component {
             Search
           </Search>
         </div>
-        <Table list={list} pattern={searchTerm} onDismiss={this.onDismiss} />
+        {result && (
+          <Table
+            list={result.hits}
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+          />
+        )}
       </div>
     );
   }
