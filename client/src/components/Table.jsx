@@ -9,6 +9,8 @@ import Button from "./Button";
 // best way
 const isSearched = searchTerm => item => {
   // don't forget return!!!!
+  item.title = item.title || "No Title";
+  item.url = item.url || "No Url";
   return item.title.toLowerCase().includes(searchTerm.toLowerCase());
 };
 class Table extends React.Component {
@@ -26,7 +28,7 @@ class Table extends React.Component {
                 <a href={item.url}>{item.title}</a>
               </span>
               <span style={{ width: "30%" }}>{item.author}</span>
-              <span style={{ width: "10%" }}>{item.num_comments}</span>
+              <span style={{ width: "10%" }}>{item.num_comments || 0}</span>
               <span style={{ width: "10%" }}>{item.points}</span>
               <span style={{ width: "10%" }}>
                 <Button
