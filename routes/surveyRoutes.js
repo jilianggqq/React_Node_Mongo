@@ -3,6 +3,8 @@ const requireLogin = require("../middlewares/requireLogin");
 const requireCredits = require("../middlewares/requireCredits");
 const Survey = mongoose.model("surveys");
 const RecipientSchema = require("../models/Recipient");
+const Mailer = require("../services/Mailer");
+const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 
 module.exports = app => {
   // you can add plenty of middlewares you want.
@@ -18,6 +20,9 @@ module.exports = app => {
       dateSent: Date.now()
     });
 
-    survey.save();
+    // survey.save();
+    // great place to sent an email.
+    const mailer = new Mail(survey, surveyTemplate(survey));
+    mailer.send();
   });
 };
