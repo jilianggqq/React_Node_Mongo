@@ -9,6 +9,10 @@ import reduxThunk from "redux-thunk";
 import App from "./components/App";
 import reducers from "./reducers";
 
+// just for test REST apis in the browser.
+import axios from "axios";
+window.axios = axios;
+
 // react creators are where we somehow initiate change inside of the redux side of our application.
 
 // we will use createStore help to create instance of our redux store.

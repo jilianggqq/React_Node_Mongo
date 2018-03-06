@@ -7,8 +7,12 @@ const Mailer = require("../services/Mailer");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 
 module.exports = app => {
+  app.get("/api/surveys/thanks", (req, res) => {
+    res.send("Thanks for voting!");
+  });
+
   // you can add plenty of middlewares you want.
-  app.post("/api/surveys", requireLogin, requireCredits, (req, res) => {
+  app.post("/api/surveys", requireLogin, requireCredits, async (req, res) => {
     const { title, subject, body, recipients } = req.body;
 
     const survey = new Survey({
@@ -20,9 +24,16 @@ module.exports = app => {
       dateSent: Date.now()
     });
 
-    // survey.save();
-    // great place to sent an email.
-    const mailer = new Mail(survey, surveyTemplate(survey));
-    mailer.send();
+    const mailer = new Mailer(survey, surveyTemplate(survey));
+    // it returns a promise.
+    try {
+      await mailer.send();
+      await survey.save();
+      req.user.credits -= 1;
+      const newuser = await req.user.save();
+      res.send(newuser);
+    } catch (err) {
+      res.status(422).send(err);
+    }
   });
 };

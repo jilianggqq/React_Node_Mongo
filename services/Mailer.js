@@ -40,15 +40,34 @@ class Mailer extends helper.Mail {
     });
   }
 
-  async send() {
+  // async way.
+  // async send() {
+  //   const request = this.sgApi.emptyRequest({
+  //     method: "POST",
+  //     path: "/v3/mail/send",
+  //     body: this.toJSON()
+  //   });
+  //
+  //   const response = await this.sgApi.API(request);
+  //   return response;
+  // }
+
+  // promise way
+  send() {
     const request = this.sgApi.emptyRequest({
       method: "POST",
       path: "/v3/mail/send",
       body: this.toJSON()
     });
-
-    const response = this.sgApi.API(request);
-    return response;
+    return new Promise((resolve, reject) => {
+      this.sgApi.API(request, (err, res) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res);
+        }
+      });
+    });
   }
 }
 
