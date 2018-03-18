@@ -7,7 +7,7 @@ import SurveyField from "./SurveyField";
 const FIELDS = [
   {
     label: "Survey Title",
-    name: "titile"
+    name: "title"
   },
   {
     label: "Survey Line",
@@ -57,13 +57,15 @@ class SurveyForm extends React.Component {
   }
 }
 
+// validation function.
 function validate(values) {
-  // console.log(values, values);
   const errors = {};
 
-  if (!values.title) {
-    errors.title = "You must provide a title";
-  }
+  _.each(FIELDS, ({ name }) => {
+    if (!values[name]) {
+      errors[name] = `You must provide a ${name}`;
+    }
+  });
 
   return errors;
 }
