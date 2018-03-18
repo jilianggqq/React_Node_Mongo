@@ -44,3 +44,6 @@ bower_components
 # Python
 *.pyc
 nohup.out
+
+# VS code
+.vscode
