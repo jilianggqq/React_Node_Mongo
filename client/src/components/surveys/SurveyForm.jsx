@@ -4,29 +4,13 @@ import { reduxForm, Field } from "redux-form";
 import { Link } from "react-router-dom";
 import SurveyField from "./SurveyField";
 import validEmails from "../../utils/validateEmails";
+import formFields from "./formFields";
 
-const FIELDS = [
-  {
-    label: "Survey Title",
-    name: "title"
-  },
-  {
-    label: "Survey Line",
-    name: "subject"
-  },
-  {
-    label: "Email Body",
-    name: "body"
-  },
-  {
-    label: "Recipient List",
-    name: "emails"
-  }
-];
-
+// No other component cares about this little decision making process right here.
+// so it does not need redux because it doesn't need to share in the application.
 class SurveyForm extends React.Component {
   renderFields() {
-    return _.map(FIELDS, ({ label, name }) => {
+    return _.map(formFields, ({ label, name }) => {
       return (
         <Field
           key={name}
@@ -40,10 +24,9 @@ class SurveyForm extends React.Component {
   }
 
   render() {
-    // component is what the type is.
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
           <Link to="/surveys" className="red btn-flat white-text">
             Cancel
@@ -62,9 +45,9 @@ class SurveyForm extends React.Component {
 function validate(values) {
   const errors = {};
 
-  errors.emails = validEmails(values.emails || "");
+  errors.recipients = validEmails(values.recipients || "");
 
-  _.each(FIELDS, ({ name }) => {
+  _.each(formFields, ({ name }) => {
     if (!values[name]) {
       errors[name] = `You must provide a ${name}`;
     }
@@ -76,5 +59,6 @@ function validate(values) {
 // take only one argument that we will want to use to customize how our form behaves.
 export default reduxForm({
   validate,
-  form: "surveyForm"
+  form: "surveyForm",
+  destroyOnUnmount: false
 })(SurveyForm);
