@@ -25,7 +25,7 @@ passport.serializeUser((user, done) => {
 
 // get id from cookie.
 passport.deserializeUser((id, done) => {
-  console.log("deserializeUser", id);
+  // console.log("deserializeUser", id);
   User.findById(id).then(user => {
     done(null, user);
   });
@@ -59,7 +59,10 @@ passport.use(
           done(null, existingUser);
         } else {
           // we don't have a user record with given id, make a new record.
-          console.log("createNewUser : ", profile.id + " : " + profile.displayName);
+          console.log(
+            "createNewUser : ",
+            profile.id + " : " + profile.displayName
+          );
           createNewUser(profile, done);
         }
       });
