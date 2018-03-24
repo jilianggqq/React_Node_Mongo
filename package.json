@@ -13,7 +13,9 @@
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "nodemon index_test.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client np && npm run build --prefix client"
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false npm install --prefix client np && npm run build --prefix client",
+    "webhook": "lt -p 5000 -s losdfwdfsdwedlldfldsfsfdmm"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "concurrently": "^3.5.1",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
+    "localtunnel": "^1.8.3",
     "mongoose": "^5.0.4",
     "node-fetch": "^2.0.0",
     "nodemon": "^1.14.12",
