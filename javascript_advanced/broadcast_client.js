@@ -1,4 +1,4 @@
-var PORT = 6024;
+var PORT = 3333;
 var dgram = require("dgram");
 var client = dgram.createSocket("udp4");
 

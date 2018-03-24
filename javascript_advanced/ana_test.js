@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 // not a number is a number.
-console.log(typeof(NaN));
+console.log(typeof NaN);
 console.log(NaN == 1);
 console.log(NaN == false);
 // NaN compares anything is false.
@@ -17,5 +17,5 @@ console.log(isNaN("A"));
 
 // 2. the very very specific feature of NaN.
 var a = NaN;
-console.log(a === a);
-console.log(a !== a);
+console.log(a === a); // false
+console.log(a !== a); // true
