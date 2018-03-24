@@ -10,7 +10,7 @@ const Mailer = require("../services/Mailer");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 
 module.exports = app => {
-  app.get("/api/surveys/thanks", (req, res) => {
+  app.get("/api/surveys/:surveyId/:choice", (req, res) => {
     res.send("Thanks for voting!");
   });
 
@@ -18,6 +18,8 @@ module.exports = app => {
     const p = new Path("/api/surveys/:surveyId/:choice");
 
     // make code elegant
+    // mongoose respects 'id' property. But if you are using mongo commands
+    // directly, should use _id.
     const events = _.chain(req.body)
       .map(({ email, url }) => {
         const match = p.test(new URL(url).pathname);
@@ -27,9 +29,23 @@ module.exports = app => {
       })
       .compact()
       .uniqBy("email", "surveyId")
+      .each(({ surveyId, choice, email }) => {
+        Survey.updateOne(
+          {
+            _id: surveyId,
+            recipients: {
+              $elemMatch: { email: email, responded: false }
+            }
+          },
+          {
+            $inc: { [choice]: 1 },
+            $set: { "recipients.$.responded": true },
+            lastResponded: new Date()
+          }
+        ).exec();
+        console.log(`recipient ${email} of ${surveyId} has been updated!`);
+      })
       .value();
-
-    console.log(events);
 
     res.send({});
   });
