@@ -4,4 +4,9 @@ module.exports = app => {
       Hello: "Node Js"
     });
   });
+
+  app.get("/except", (req, res) => {
+    // res.send("exception");
+    throw "made exception";
+  });
 };
