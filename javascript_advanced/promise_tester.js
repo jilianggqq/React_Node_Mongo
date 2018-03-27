@@ -24,16 +24,35 @@ async function main() {
   // console.log("await wat data:", data);
 
   // 3. using Q
-  promiseProvider
-    .qprovider(url)
+  // promiseProvider
+  //   .qprovider(url)
+  //   .then(res => {
+  //     let d = Q.defer();
+  //     d.resolve(res.followers_url);
+  //     return d.promise;
+  //   })
+  //   .then(res => promiseProvider.qprovider(res))
+  //   .then(res => console.log(res))
+  //   .fail(err => console.log(err));
+
+  initPromise
     .then(res => {
-      let d = Q.defer();
-      d.resolve(res.followers_url);
-      return d.promise;
+      // console.log("promise resolved:", res);
+      // 1. we can return another promise here.
+      return res.followers_url;
     })
-    .then(res => promiseProvider.qprovider(res))
-    .then(res => console.log(res))
-    .fail(err => console.log(err));
+    .then(res => {
+      // get data from previous promise.
+      console.log("the followeres url:", res);
+      let resArr = [];
+      resArr.push("jilianggqq");
+      resArr.push(res);
+      return resArr;
+    })
+    .then(arr => console.log(arr.join(", ")))
+    .catch(err => {
+      console.log("promise rejected:", err);
+    });
 }
 
 main();
