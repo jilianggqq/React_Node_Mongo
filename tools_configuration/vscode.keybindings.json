@@ -1,3 +1,4 @@
+// Place your key bindings in this file to overwrite the defaults
 [
   {
     "key": "ctrl+m",
@@ -13,5 +14,21 @@
     "key": "ctrl+shift+m",
     "command": "editor.action.selectToBracket",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+left",
+    "command": "workbench.action.navigateBack"
+  },
+  {
+    "key": "ctrl+alt+-",
+    "command": "-workbench.action.navigateBack"
+  },
+  {
+    "key": "alt+right",
+    "command": "workbench.action.navigateForward"
+  },
+  {
+    "key": "ctrl+shift+-",
+    "command": "-workbench.action.navigateForward"
   }
 ]
